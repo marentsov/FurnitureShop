@@ -72,6 +72,7 @@ def catalog(request):
         context
     )
 
+
 def product(request):
     return render(
         request,
