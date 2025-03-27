@@ -2,7 +2,6 @@ from django import template
 
 from goods.models import Categories
 
-
 register = template.Library()
 
 
