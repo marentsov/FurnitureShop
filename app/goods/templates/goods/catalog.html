@@ -55,7 +55,7 @@
          <h2 class="mt-4">По запросу ничего не найдено</h2>
      {% endif %}
      {% endif %}
-{% for product in goods %}
+                       {% for product in goods %}
 
                         <!-- Карта товара -->
                         <div class="col-lg-4 col-md-6 p-4">
@@ -71,7 +71,7 @@
                                             {% autoescape off %}
                                                 {% if product.headline %}
                                                 {{ product.headline }}
-                                                {% else %}}
+                                                {% else %}
                                                 {{ product.name }}
                                                 {% endif %}
                                             {% endautoescape %}
@@ -81,7 +81,7 @@
                                         {% autoescape off %}
                                                 {% if product.bodyline %}
                                                 {{ product.bodyline|truncatechars:100 }}
-                                                {% else %}}
+                                                {% else %}
                                                 {{ product.description|truncatechars:50 }}
                                                 {% endif %}
                                             {% endautoescape %}
