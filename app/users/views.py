@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect
 from django.contrib import auth
@@ -5,6 +6,8 @@ from django.contrib import auth
 from users.forms import UserLoginForm
 
 from users.forms import UserRegistrationForm
+
+from users.forms import ProfileForm
 
 
 def login(request):
@@ -51,9 +54,19 @@ def registration(request):
         context,
     )
 
+@login_required
 def profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('user:profile'))
+    else:
+        form = ProfileForm(instance=request.user)
+
     context = {
-        'title': 'Home - Кабинет'
+        'title': 'Home - Кабинет',
+        'form': form,
     }
     return render(
         request,
@@ -61,6 +74,7 @@ def profile(request):
         context,
     )
 
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect(reverse('main:index'))
